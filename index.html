@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.0/dist/mindar-image.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.0/dist/mindar-image-aframe.prod.js"></script>
+    
+    <script>
+      // --- LOGIQUE JAVASCRIPT (Inchangée) ---
+
+      function openGraph(graphIdToOpen) {
+        const allGraphIds = ['#vr-graph-1', '#vr-graph-2', '#vr-graph-3'];
+
+        allGraphIds.forEach(id => {
+            const graphEntity = document.querySelector(id);
+            
+            if (id === graphIdToOpen) {
+                if (!graphEntity.getAttribute('visible')) {
+                    graphEntity.setAttribute('visible', true);
+                    graphEntity.setAttribute('scale', '0 0 0');
+                    graphEntity.setAttribute('animation', 'property: scale; to: 1 1 1; dur: 1000; easing: easeOutElastic');
+                }
+            } else {
+                if (graphEntity.getAttribute('visible')) {
+                    graphEntity.setAttribute('animation', 'property: scale; to: 0 0 0; dur: 300; easing: easeInBack');
+                    setTimeout(() => { graphEntity.setAttribute('visible', false); }, 300);
+                }
+            }
+        });
+      }
+
+      AFRAME.registerComponent('graph-trigger-1', { init: function () { this.el.addEventListener('click', () => { openGraph('#vr-graph-1'); }); } });
+      AFRAME.registerComponent('graph-trigger-2', { init: function () { this.el.addEventListener('click', () => { openGraph('#vr-graph-2'); }); } });
+      AFRAME.registerComponent('graph-trigger-3', { init: function () { this.el.addEventListener('click', () => { openGraph('#vr-graph-3'); }); } });
+
+      AFRAME.registerComponent('close-trigger', {
+        init: function () {
+          this.el.addEventListener('click', () => {
+            const graphEntity = this.el.closest('.graph-container');
+            if (graphEntity) {
+                graphEntity.setAttribute('animation', 'property: scale; to: 0 0 0; dur: 400; easing: easeInBack');
+                setTimeout(() => { graphEntity.setAttribute('visible', false); }, 400);
+            }
+          });
+        }
+      });
+
+      AFRAME.registerComponent('look-at-camera', {
+        tick: function () {
+          this.el.object3D.lookAt(this.el.sceneEl.camera.el.object3D.position);
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <a-scene mindar-image="imageTargetSrc: ./targets.mind; filterMinCF:0.0001; filterBeta: 0.001;" 
+             color-space="sRGB" 
+             renderer="colorManagement: true, physicallyCorrectLights" 
+             vr-mode-ui="enabled: false" 
+             device-orientation-permission-ui="enabled: false">
+
+      <a-camera position="0 0 0" look-controls="enabled: false">
+        <a-entity cursor="fuse: false; rayOrigin: mouse;" raycaster="far: 10000; objects: .clickable"></a-entity>
+      </a-camera>
+      
+      <a-light type="point" position="-1 2 1" intensity="0.8" color="#00FFFF"></a-light>
+      <a-light type="point" position="1 2 1" intensity="0.8" color="#FF00FF"></a-light>
+      <a-light type="ambient" intensity="0.4"></a-light>
+
+      <a-entity mindar-image-target="targetIndex: 0">
+
+        <a-entity position="0 -0.6 0" rotation="-35 20 0">
+            <a-entity position="-0.35 0 0">
+                <a-text value="NIVEAUX" align="center" position="0 0.15 0" scale="0.3 0.3 0.3" color="#aaaaaa" font="roboto"></a-text>
+                <a-ring class="clickable" graph-trigger-1 color="#ff914d" radius-inner="0.07" radius-outer="0.09" animation="property: scale; to: 1.1 1.1 1.1; loop: true; dir: alternate"></a-ring>
+                <a-circle class="clickable" graph-trigger-1 color="#111" radius="0.06"></a-circle>
+            </a-entity>
+
+            <a-entity position="0 0 0">
+                 <a-text value="DIPLOMES" align="center" position="0 0.2 0" scale="0.3 0.3 0.3" color="#00FFFF" font="roboto"></a-text>
+                 <a-box class="clickable" graph-trigger-3 color="#00FFFF" width="0.1" height="0.1" depth="0.1" 
+                        opacity="0.5" metalness="0.9" roughness="0.1" emissive="#00FFFF" emissiveIntensity="0.3"></a-box>
+            </a-entity>
+
+            <a-entity position="0.35 0 0">
+                <a-text value="FILIERES" align="center" position="0 0.15 0" scale="0.3 0.3 0.3" color="#aaaaaa" font="roboto"></a-text>
+                <a-sphere class="clickable" graph-trigger-2 color="#00FFAA" radius="0.08" opacity="0.8" animation="property: position; to: 0 0.02 0; loop: true; dir: alternate"></a-sphere>
+            </a-entity>
+        </a-entity>
+
+
+        <a-entity id="vr-graph-1" class="graph-container" visible="false" position="0 0.3 0.1">
+            <a-plane position="0 0 -0.05" width="2.2" height="2.2" color="#000000" opacity="0.95" material="shader: standard; transparent: true"></a-plane>
+            
+            <a-entity position="0.95 0.95 0.1"><a-sphere class="clickable" close-trigger radius="0.12" color="#222"></a-sphere><a-text value="X" align="center" color="white" scale="0.8 0.8 0.8" position="0 0 0.13"></a-text></a-entity>
+            <a-text value="FORMATIONS PAR NIVEAU" position="0 1.0 0" align="center" color="white" font="roboto" width="3.2"></a-text>
+            <a-entity position="0 -0.2 0">
+                <a-entity position="-0.6 0 0.05"><a-box width="0.2" depth="0.05" height="0.8" position="0 0.4 0" color="#ff914d"></a-box><a-text value="48" position="0 0.95 0" align="center" color="white" width="6"></a-text><a-text value="Niveau 5" position="0 -0.2 0" align="center" color="#ff914d" scale="0.35 0.35 0.35"></a-text></a-entity>
+                <a-entity position="0 0 0.05"><a-box width="0.2" depth="0.05" height="0.61" position="0 0.305 0" color="#cfcfcf"></a-box><a-text value="37" position="0 0.75 0" align="center" color="white" width="6"></a-text><a-text value="Niveau 6" position="0 -0.2 0" align="center" color="#cfcfcf" scale="0.35 0.35 0.35"></a-text></a-entity>
+                <a-entity position="0.6 0 0.05"><a-box width="0.2" depth="0.05" height="0.08" position="0 0.04 0" color="#2c6ba0"></a-box><a-text value="5" position="0 0.25 0" align="center" color="white" width="6"></a-text><a-text value="Niveau 7" position="0 -0.2 0" align="center" color="#4faaff" scale="0.35 0.35 0.35"></a-text></a-entity>
+            </a-entity>
+        </a-entity>
+
+        <a-entity id="vr-graph-2" class="graph-container" visible="false" position="0 0.3 0.1">
+            <a-plane position="0 0 -0.05" width="2.6" height="2.6" color="#050505" opacity="0.95" material="transparent: true"></a-plane>
+            <a-entity position="1.15 1.15 0.1"><a-sphere class="clickable" close-trigger radius="0.12" color="#222"></a-sphere><a-text value="X" align="center" color="white" scale="0.8 0.8 0.8" position="0 0 0.13"></a-text></a-entity>
+            <a-text value="ETUDIANTS PAR FILIERE" position="0 1.1 0" align="center" color="#00FFAA" font="roboto" width="3.5"></a-text>
+            <a-entity position="0 -0.15 0.05" scale="0.9 0.9 0.9"> 
+                <a-ring radius-inner="0.395" radius-outer="0.4" color="#333" opacity="0.5"></a-ring><a-ring radius-inner="0.795" radius-outer="0.8" color="#333" opacity="0.5"></a-ring><a-ring radius-inner="1.195" radius-outer="1.2" color="#555" opacity="0.8"></a-ring>
+                <a-entity><a-ring radius-inner="0.08" radius-outer="0.12" color="#00FFAA" opacity="0.8"></a-ring><a-octahedron radius="0.06" color="#00FFAA" wireframe="true"></a-octahedron></a-entity>
+                <a-entity><a-entity line="start: 0 1.0 0; end: 0.75 0.43 0; color: #00FFAA"></a-entity><a-entity line="start: 0.75 0.43 0; end: 0.25 -0.43 0; color: #00FFAA"></a-entity><a-entity line="start: 0.25 -0.43 0; end: 0 -0.5 0; color: #00FFAA"></a-entity><a-entity line="start: 0 -0.5 0; end: -0.43 -0.25 0; color: #00FFAA"></a-entity><a-entity line="start: -0.43 -0.25 0; end: -0.43 0.25 0; color: #00FFAA"></a-entity><a-entity line="start: -0.43 0.25 0; end: 0 1.0 0; color: #00FFAA"></a-entity>
+                    <a-sphere position="0 1.0 0" radius="0.04" color="#fff"></a-sphere><a-sphere position="0.75 0.43 0" radius="0.04" color="#fff"></a-sphere><a-sphere position="0.25 -0.43 0" radius="0.03" color="#fff"></a-sphere><a-sphere position="0 -0.5 0" radius="0.03" color="#fff"></a-sphere><a-sphere position="-0.43 -0.25 0" radius="0.03" color="#fff"></a-sphere><a-sphere position="-0.43 0.25 0" radius="0.03" color="#fff"></a-sphere>
+                </a-entity>
+                <a-entity position="0 1.25 0"><a-text value="MEDICAL/SOCIAL" align="center" color="#00FFAA" scale="0.5 0.5 0.5"></a-text></a-entity><a-entity position="1.0 0.5 0"><a-text value="COMMERCE" align="left" color="#00FFAA" scale="0.4 0.4 0.4"></a-text></a-entity><a-entity position="0.4 -0.65 0"><a-text value="NUMERIQUE" align="left" color="#00FFAA" scale="0.4 0.4 0.4"></a-text></a-entity><a-entity position="0 -0.7 0"><a-text value="LETTRES" align="center" color="#00FFAA" scale="0.4 0.4 0.4"></a-text></a-entity><a-entity position="-0.8 -0.3 0"><a-text value="AUTRES" align="right" color="#888" scale="0.4 0.4 0.4"></a-text></a-entity>
+            </a-entity> 
+        </a-entity>
+
+
+        <a-entity id="vr-graph-3" class="graph-container" visible="false" position="0 0.3 0.1" rotation="0 0 0">
+            
+            <a-entity scale="0.4 0.4 0.4">
+                
+                <a-plane position="0 1.8 -0.1" width="6.5" height="5.5" color="#F0F0F0" opacity="0.95"></a-plane>
+
+                <a-entity position="2.8 4.1 0" look-at-camera>
+                    <a-sphere class="clickable" close-trigger radius="0.2" color="#FF0055" opacity="0.8"></a-sphere>
+                    <a-text value="X" align="center" color="white" scale="1.5 1.5 1.5" position="0 0 0.21"></a-text>
+                </a-entity>
+
+                <a-text value="BUSINESS INFOGRAPHIC" align="center" position="0 3.8 0" color="#007BFF" font="roboto" scale="2 2 2"></a-text>
+
+                <a-entity position="-2.0 0 0">
+                    <a-entity position="0 0 0">
+                        <a-box width="0.6" depth="0.6" height="0.48" position="0 0.24 0" color="#007BFF"></a-box>
+                        <a-entity position="0 0.6 0" look-at-camera>
+                            <a-text value="16%" align="center" color="#007BFF" scale="1.5 1.5 1.5"></a-text>
+                            <a-text value="Maecenas vel\nmauris nunc" position="0 -0.35 0" align="center" color="#666666" scale="0.5 0.5 0.5"></a-text>
+                            <a-entity line="start: -0.5 -0.5 0; end: -0.2 -0.2 0; color: #007BFF"></a-entity>
+                        </a-entity>
+                        <a-text value="01" position="0 0.1 0.31" align="center" color="white" font="roboto" scale="1.2 1.2 1.2" rotation="-15 0 0"></a-text>
+                    </a-entity>
+
+                    <a-entity position="1.0 0 0">
+                        <a-box width="0.6" depth="0.6" height="0.63" position="0 0.315 0" color="#007BFF"></a-box>
+                        <a-entity position="0 0.8 0" look-at-camera>
+                             <a-text value="21%" align="center" color="#007BFF" scale="1.5 1.5 1.5"></a-text>
+                             <a-text value="Fusce tincidunt\nlobortis nulla" position="0 -0.35 0" align="center" color="#666666" scale="0.5 0.5 0.5"></a-text>
+                             <a-entity line="start: -0.5 -0.5 0; end: -0.2 -0.2 0; color: #007BFF"></a-entity>
+                        </a-entity>
+                        <a-text value="02" position="0 0.1 0.31" align="center" color="white" font="roboto" scale="1.2 1.2 1.2" rotation="-15 0 0"></a-text>
+                    </a-entity>
+
+                    <a-entity position="2.0 0 0">
+                        <a-box width="0.6" depth="0.6" height="1.14" position="0 0.57 0" color="#007BFF"></a-box>
+                         <a-entity position="0 1.3 0" look-at-camera>
+                             <a-text value="38%" align="center" color="#007BFF" scale="1.5 1.5 1.5"></a-text>
+                             <a-text value="Aenean rutrum\nlacinia ipsum" position="0 -0.35 0" align="center" color="#666666" scale="0.5 0.5 0.5"></a-text>
+                             <a-entity line="start: -0.5 -0.5 0; end: -0.2 -0.2 0; color: #007BFF"></a-entity>
+                        </a-entity>
+                        <a-text value="03" position="0 0.1 0.31" align="center" color="white" font="roboto" scale="1.2 1.2 1.2" rotation="-15 0 0"></a-text>
+                    </a-entity>
+
+                    <a-entity position="3.0 0 0">
+                        <a-box width="0.6" depth="0.6" height="2.16" position="0 1.08 0" color="#007BFF"></a-box>
+                         <a-entity position="0 2.3 0" look-at-camera>
+                             <a-text value="72%" align="center" color="#007BFF" scale="1.5 1.5 1.5"></a-text>
+                             <a-text value="Donec gravida\nnulla quis" position="0 -0.35 0" align="center" color="#666666" scale="0.5 0.5 0.5"></a-text>
+                             <a-entity line="start: -0.5 -0.5 0; end: -0.2 -0.2 0; color: #007BFF"></a-entity>
+                        </a-entity>
+                        <a-text value="04" position="0 0.1 0.31" align="center" color="white" font="roboto" scale="1.2 1.2 1.2" rotation="-15 0 0"></a-text>
+                    </a-entity>
+                     
+                    <a-entity position="4.0 0 0">
+                        <a-box width="0.6" depth="0.6" height="2.67" position="0 1.335 0" color="#007BFF"></a-box>
+                         <a-entity position="0 2.8 0" look-at-camera>
+                             <a-text value="89%" align="center" color="#007BFF" scale="1.5 1.5 1.5"></a-text>
+                             <a-text value="Vivamus diam\ntortor" position="0 -0.35 0" align="center" color="#666666" scale="0.5 0.5 0.5"></a-text>
+                             <a-entity line="start: -0.5 -0.5 0; end: -0.2 -0.2 0; color: #007BFF"></a-entity>
+                        </a-entity>
+                        <a-text value="05" position="0 0.1 0.31" align="center" color="white" font="roboto" scale="1.2 1.2 1.2" rotation="-15 0 0"></a-text>
+                    </a-entity>
+                </a-entity>
+            </a-entity>
+        </a-entity>
+
+      </a-entity> 
+    </a-scene>
+  </body>
+</html>
