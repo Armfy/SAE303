@@ -16,16 +16,22 @@
   <body>
     <a-scene mindar-image="imageTargetSrc: ./targets.mind; uiLoading: no; uiError: yes;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights"  vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
       <a-assets>
-        <a-asset-item id="hat-model" src="./textures/hat.glb"></a-asset-item>
-        <a-asset-item id="student-model" src="./textures/student.glb"></a-asset-item>
-        <a-asset-item id="suit-model" src="./textures/suit.glb"></a-asset-item>
-        <audio id="bg-music" src="./sounds/background.mp3" preload="auto"></audio>
+        <a-asset-item id="hat-model" src="./assets/textures/3D/hat.glb"></a-asset-item>
+        <a-asset-item id="student-model" src="./assets/textures/3D/student.glb"></a-asset-item>
+        <a-asset-item id="suit-model" src="./assets/textures/3D/suit.glb"></a-asset-item>
+        <a-asset-item id="school-model" src="./assets/textures/3D/school.glb"></a-asset-item>
+        <a-asset-item id="lock-model" src="./assets/textures/3D/lock.glb"></a-asset-item>
+        <img id="graph-aprentis" src="./assets/textures/graph_aprentis.png">
+        <img id="nombres" src="./assets/textures/nombres.png">
+        <img id="unilist" src="./assets/textures/unilist.png">
+        <audio id="bg-music" src="./assets/sounds/background.mp3" preload="auto"></audio>
       </a-assets>
       
       <a-entity sound="src: #bg-music; autoplay: true; loop: true; volume: 0.35"></a-entity>
       
       <a-camera position="0 0 0" look-controls="enabled: false">
         <a-entity cursor="fuse: false; rayOrigin: mouse;" raycaster="far: 10000; objects: .clickable"></a-entity>
+        <a-box position="0 0 -2" rotation="15 20 0" color="#4CC3D9" width="0.5" height="0.5" depth="0.5"></a-box>
       </a-camera>
       <a-entity mindar-image-target="targetIndex: 0">
         <a-plane id="welcome-bg" color="#1a5f6f" opacity="0.95" position="0 0 0.1" width="2" height="1.2" visible="false"></a-plane>
@@ -36,22 +42,36 @@
         
         <a-text value="EFFECTIFS" align="center" position="-0.4 0.55 0" scale="0.22 0.22 0.22" color="#FF5722" visible="false" id="sphere1-label"></a-text>
         <a-text value="STATUT" align="center" position="0.4 0.55 0" scale="0.22 0.22 0.22" color="#4CAF50" visible="false" id="sphere2-label"></a-text>
+        <a-text value="ETABLISSEMENTS" align="center" position="0 -0.6 0" scale="0.22 0.22 0.22" color="#2196F3" visible="false" id="sphere3-label"></a-text>
+        <a-text value="TOP 3" align="center" position="-0.6 0.55 0" scale="0.22 0.22 0.22" color="#FFD700" visible="false" id="sphere4-label"></a-text>
         
         <a-plane id="text-bg" color="#000000" opacity="0.9" position="0 0.85 -0.01" width="1.3" height="0.25" visible="false"></a-plane>
-        <a-text value="Il y a 10 ans" align="center" position="0 0.85 0" scale="0.45 0.45 0.45" color="#ffffff" visible="false" id="title-text"></a-text>
+        <a-text value="En 2015" align="center" position="0 0.85 0" scale="0.45 0.45 0.45" color="#ffffff" visible="false" id="title-text"></a-text>
         <a-plane id="number-bg" color="#000000" opacity="0.9" position="0 -0.4 -0.01" width="0.85" height="0.22" visible="false"></a-plane>
         <a-text value="2344" align="center" position="0 -0.4 0" scale="0.55 0.55 0.55" color="#FFC107" visible="false" id="number-text" font="roboto"></a-text>
-        <a-sphere class="clickable" color="#FF5722" radius="0.15" position="-0.4 0.35 0" visible="false" id="scan-sphere" 
+        <a-plane class="clickable" src="#nombres" width="0.5" height="0.5" position="0.4 0.2 0" visible="false" id="scan-sphere" transparent="true"
                   animation__hover="property: scale; to: 1.2 1.2 1.2; dur: 300; startEvents: mouseenter" 
-                  animation__leave="property: scale; to: 1 1 1; dur: 300; startEvents: mouseleave"></a-sphere>
+                  animation__leave="property: scale; to: 1 1 1; dur: 300; startEvents: mouseleave"></a-plane>
         <a-entity id="hat-entity" gltf-model="#hat-model" position="0 0 0.1" scale="0.03 0.03 0.03" visible="false"></a-entity>
         
-        <a-sphere class="clickable" color="#4CAF50" radius="0.15" position="0.4 0.35 0" visible="false" id="status-sphere"
+        <a-box class="clickable" src="#graph-aprentis" width="0.35" height="0.35" depth="0.2" position="0.3 -0.5 0" visible="false" id="status-sphere"
+                  animation__hover="property: scale; to: 1.1 1.1 1.1; dur: 300; startEvents: mouseenter" 
+                  animation__leave="property: scale; to: 1 1 1; dur: 300; startEvents: mouseleave"></a-box>
+        <a-plane class="clickable" src="#unilist" width="0.3" height="0.3" position="-0.3 -0.6 0" visible="false" id="school-sphere" transparent="true"
                   animation__hover="property: scale; to: 1.2 1.2 1.2; dur: 300; startEvents: mouseenter" 
-                  animation__leave="property: scale; to: 1 1 1; dur: 300; startEvents: mouseleave"></a-sphere>
+                  animation__leave="property: scale; to: 1 1 1; dur: 300; startEvents: mouseleave"></a-plane>
+        <a-box class="clickable" color="#FFD700" width="0.35" height="0.35" depth="0.2" position="-0.6 0.2 0" visible="false" id="podium-sphere"
+                  animation__hover="property: scale; to: 1.1 1.1 1.1; dur: 300; startEvents: mouseenter" 
+                  animation__leave="property: scale; to: 1 1 1; dur: 300; startEvents: mouseleave"></a-box>
         <a-plane id="crowd-bg" color="#000000" opacity="0.92" position="0 0 0.05" width="2.8" height="1" visible="false"></a-plane>
         <a-text value="APPRENTIS vs NON-APPRENTIS" align="center" position="0 0.45 0.06" scale="0.32 0.32 0.32" color="#4CAF50" visible="false" id="crowd-title"></a-text>
         <a-entity id="crowd-container" position="0 -0.1 0.1" visible="false"></a-entity>
+        <a-plane id="schools-bg" color="#000000" opacity="0.92" position="0 0 0.05" width="2.8" height="1" visible="false"></a-plane>
+        <a-text value="LES ETABLISSEMENTS" align="center" position="0 0.45 0.06" scale="0.32 0.32 0.32" color="#2196F3" visible="false" id="schools-title"></a-text>
+        <a-entity id="schools-container" position="0 0 0.1" visible="false"></a-entity>
+        <a-plane id="podium-bg" color="#000000" opacity="0.92" position="0 0 0.05" width="2.8" height="1.5" visible="false"></a-plane>
+        <a-text value="TOP DES ETABLISSEMENTS AVEC LE PLUS D'APPRENTIS" align="center" position="0 0.65 0.06" scale="0.28 0.28 0.28" color="#FFD700" visible="false" id="podium-title"></a-text>
+        <a-entity id="podium-container" position="0 -0.1 0.1" visible="false"></a-entity>
       </a-entity>
     </a-scene>
 
@@ -59,8 +79,12 @@
       const targetEl = document.querySelector('[mindar-image-target]');
       const sphereEl = document.querySelector('#scan-sphere');
       const statusSphere = document.querySelector('#status-sphere');
+      const schoolSphere = document.querySelector('#school-sphere');
+      const podiumSphere = document.querySelector('#podium-sphere');
       const sphere1Label = document.querySelector('#sphere1-label');
       const sphere2Label = document.querySelector('#sphere2-label');
+      const sphere3Label = document.querySelector('#sphere3-label');
+      const sphere4Label = document.querySelector('#sphere4-label');
       const hatEntity = document.querySelector('#hat-entity');
       const titleText = document.querySelector('#title-text');
       const textBg = document.querySelector('#text-bg');
@@ -69,6 +93,12 @@
       const crowdContainer = document.querySelector('#crowd-container');
       const crowdBg = document.querySelector('#crowd-bg');
       const crowdTitle = document.querySelector('#crowd-title');
+      const schoolsContainer = document.querySelector('#schools-container');
+      const schoolsBg = document.querySelector('#schools-bg');
+      const schoolsTitle = document.querySelector('#schools-title');
+      const podiumContainer = document.querySelector('#podium-container');
+      const podiumBg = document.querySelector('#podium-bg');
+      const podiumTitle = document.querySelector('#podium-title');
       const welcomeBg = document.querySelector('#welcome-bg');
       const welcomeTitle = document.querySelector('#welcome-title');
       const welcomeSubtitle = document.querySelector('#welcome-subtitle');
@@ -76,7 +106,6 @@
       const startText = document.querySelector('#start-text');
       
       let animationRunning = false;
-      let statusAnimationRunning = false;
       let menuActive = false;
 
       const showElement = (el, animation) => {
@@ -89,15 +118,23 @@
       const showSpheres = () => {
         showElement(sphereEl, 'property: scale; from: 0 0 0; to: 1 1 1; dur: 500; easing: easeOutBack');
         showElement(statusSphere, 'property: scale; from: 0 0 0; to: 1 1 1; dur: 500; easing: easeOutBack');
+        showElement(schoolSphere, 'property: scale; from: 0 0 0; to: 1 1 1; dur: 500; easing: easeOutBack');
+        showElement(podiumSphere, 'property: scale; from: 0 0 0; to: 1 1 1; dur: 500; easing: easeOutBack');
         showElement(sphere1Label);
         showElement(sphere2Label);
+        showElement(sphere3Label);
+        showElement(sphere4Label);
       };
       
       const hideSpheres = () => {
         hideElement(sphereEl);
         hideElement(statusSphere);
+        hideElement(schoolSphere);
+        hideElement(podiumSphere);
         hideElement(sphere1Label);
         hideElement(sphere2Label);
+        hideElement(sphere3Label);
+        hideElement(sphere4Label);
       };
       
       targetEl.addEventListener('targetFound', () => {
@@ -113,8 +150,8 @@
       });
       
       targetEl.addEventListener('targetLost', () => {
-        [sphereEl, statusSphere, sphere1Label, sphere2Label, titleText, textBg, numberText, 
-         numberBg, crowdContainer, crowdBg, crowdTitle, welcomeBg, welcomeTitle, welcomeSubtitle, 
+        [sphereEl, statusSphere, schoolSphere, podiumSphere, sphere1Label, sphere2Label, sphere3Label, sphere4Label, titleText, textBg, numberText, 
+         numberBg, crowdContainer, crowdBg, crowdTitle, schoolsContainer, schoolsBg, schoolsTitle, podiumContainer, podiumBg, podiumTitle, welcomeBg, welcomeTitle, welcomeSubtitle, 
          startButton, startText]
           .forEach(hideElement);
       });
@@ -139,27 +176,33 @@
         hatEntity.setAttribute('animation', 'property: scale; to: 0.15 0.15 0.15; dur: 2000; easing: easeOutQuad');
         
         setTimeout(() => {
-          titleText.setAttribute('value', 'Il y a 5 ans');
+          titleText.setAttribute('value', 'En 2020');
           numberText.setAttribute('value', '2758');
           hatEntity.setAttribute('animation', 'property: scale; to: 0.28 0.28 0.28; dur: 2000; easing: easeOutQuad');
         }, 3000);
         
         setTimeout(() => {
-          titleText.setAttribute('value', 'Maintenant');
+          titleText.setAttribute('value', 'En 2025');
           numberText.setAttribute('value', '2747');
           hatEntity.setAttribute('animation', 'property: scale; to: 0.38 0.38 0.38; dur: 2000; easing: easeOutQuad');
         }, 6000);
         
         setTimeout(() => {
+          titleText.setAttribute('value', 'Maintenant');
+          numberText.setAttribute('value', '3249');
+          hatEntity.setAttribute('animation', 'property: scale; to: 0.48 0.48 0.48; dur: 2000; easing: easeOutQuad');
+        }, 9000);
+        
+        setTimeout(() => {
           [hatEntity, titleText, textBg, numberText, numberBg].forEach(hideElement);
           showSpheres();
           animationRunning = false;
-        }, 10000);
+        }, 13000);
       });
       
       statusSphere.addEventListener('click', () => {
-        if (statusAnimationRunning) return;
-        statusAnimationRunning = true;
+        if (animationRunning) return;
+        animationRunning = true;
         
         hideSpheres();
         showElement(crowdBg, 'property: opacity; from: 0; to: 0.95; dur: 500');
@@ -169,10 +212,11 @@
         showElement(crowdContainer);
         
         const positions = [-0.9, -0.3, 0.3, 0.9];
+        // Animation d'apparition des étudians et apprentis
         positions.forEach((x, index) => {
           setTimeout(() => {
             const model = document.createElement('a-entity');
-            const modelId = index === 3 ? '#suit-model' : '#student-model';
+            const modelId = index === 3 ? '#suit-model' : '#student-model'; // Le 4ème modèle est un apprenti
             model.setAttribute('gltf-model', modelId);
             model.setAttribute('position', `${x} 0 0`);
             model.setAttribute('scale', '0.17 0.17 0.17');
@@ -191,12 +235,123 @@
             crowdContainer.appendChild(label);
           }, index * 400);
         });
-        
+
+        // Fin de l'animation après le dernier élément
         setTimeout(() => {
           [crowdContainer, crowdBg, crowdTitle].forEach(hideElement);
           showSpheres();
-          statusAnimationRunning = false;
+          animationRunning = false;
         }, 6000);
+      });
+
+      // Animation pour le statut des établissements
+      schoolSphere.addEventListener('click', () => {
+        if (animationRunning) return;
+        animationRunning = true;
+        
+        hideSpheres();
+        showElement(schoolsBg, 'property: opacity; from: 0; to: 0.92; dur: 500');
+        showElement(schoolsTitle, 'property: opacity; from: 0; to: 1; dur: 500');
+        
+        schoolsContainer.innerHTML = '';
+        showElement(schoolsContainer);
+        
+        // Animation de 9 écoles défilant de droite à gauche (5 privées + 4 publiques)
+        for (let i = 0; i < 9; i++) {
+          setTimeout(() => {
+            // Ajouter le modèle 3D de l'école
+            const school = document.createElement('a-entity');
+            school.setAttribute('gltf-model', '#school-model');
+            school.setAttribute('position', '5 0 0'); // Départ à droite
+            school.setAttribute('scale', '0.02 0.02 0.02');
+            school.setAttribute('animation', 'property: position; to: -2 0 0; dur: 3500; easing: linear'); // Animation vers la gauche
+            schoolsContainer.appendChild(school);
+            
+            // Ajouter un cadenas devant les écoles privées (5 premières)
+            let lock = null;
+            if (i < 5) {
+              lock = document.createElement('a-entity');
+              lock.setAttribute('gltf-model', '#lock-model');
+              lock.setAttribute('position', '5.15 0 0.3'); // Devant l'école
+              lock.setAttribute('rotation', '0 90 0');
+              lock.setAttribute('scale', '0.15 0.15 0.15');
+              lock.setAttribute('animation', 'property: position; to: -1.85 0 0.3; dur: 3500; easing: linear');
+              schoolsContainer.appendChild(lock);
+            }
+            
+            // Ajouter le texte en dessous de l'école (PRIVEE pour les 5 premières, PUBLIQUE pour les 4 dernières)
+            const label = document.createElement('a-text');
+            label.setAttribute('value', i < 5 ? 'PRIVEE' : 'PUBLIQUE');
+            label.setAttribute('align', 'center'); 
+            label.setAttribute('position', '5 -0.15 0');
+            label.setAttribute('scale', '1 1 1');
+            label.setAttribute('color', '#ffffff');
+            label.setAttribute('animation', 'property: position; to: -2 -0.15 0; dur: 3500; easing: linear');
+            schoolsContainer.appendChild(label);
+            
+            // Supprimer l'école, le label et le cadenas après leur passage
+            setTimeout(() => {
+              schoolsContainer.removeChild(school);
+              schoolsContainer.removeChild(label);
+              if (lock) schoolsContainer.removeChild(lock);
+            }, 3500);
+          }, i * 1200);
+        }
+          // Fin de l'animation après le dernier élément
+        setTimeout(() => {
+          [schoolsContainer, schoolsBg, schoolsTitle].forEach(hideElement);
+          showSpheres();
+          animationRunning = false;
+        }, 13300);
+      });
+      
+      podiumSphere.addEventListener('click', () => {
+        if (animationRunning) return;
+        animationRunning = true;
+        
+        hideSpheres();
+        showElement(podiumBg, 'property: opacity; from: 0; to: 0.92; dur: 500');
+        showElement(podiumTitle, 'property: opacity; from: 0; to: 1; dur: 500');
+        
+        podiumContainer.innerHTML = '';
+        showElement(podiumContainer);
+        
+        // Création du podium avec 3 boîtes
+        const podiumData = [
+          { position: '-0.35 -0.15 0', height: 0.4, color: '#C0C0C0', rank: '2', label: 'IUT BEZIERS' },  // 2ème place (gauche)
+          { position: '0 0 0', height: 0.6, color: '#FFD700', rank: '1', label: 'UNIVERSITE' },         // 1ère place (centre)
+          { position: '0.35 -0.25 0', height: 0.3, color: '#CD7F32', rank: '3', label: 'LYCEE MERMOZ' }  // 3ème place (droite)
+        ];
+        
+        podiumData.forEach((data, index) => {
+          setTimeout(() => {
+            // Créer la boîte du podium
+            const box = document.createElement('a-box');
+            box.setAttribute('position', data.position);
+            box.setAttribute('width', '0.35');
+            box.setAttribute('height', data.height);
+            box.setAttribute('depth', '0.35');
+            box.setAttribute('color', data.color);
+            box.setAttribute('animation', `property: scale; from: 0 0 0; to: 1 1 1; dur: 800; easing: easeOutBack`);
+            podiumContainer.appendChild(box);
+            
+            // Ajouter le numéro de rang au-dessus
+            const rankText = document.createElement('a-text');
+            rankText.setAttribute('value', data.rank);
+            rankText.setAttribute('align', 'center');
+            rankText.setAttribute('position', `${data.position.split(' ')[0]} ${parseFloat(data.position.split(' ')[1]) + data.height/2 + 0.15} 0.2`);
+            rankText.setAttribute('scale', '0.5 0.5 0.5');
+            rankText.setAttribute('color', '#ffffff');
+            rankText.setAttribute('animation', 'property: opacity; from: 0; to: 1; dur: 800');
+            podiumContainer.appendChild(rankText);
+          }, index * 400);
+        });
+        
+        setTimeout(() => {
+          [podiumContainer, podiumBg, podiumTitle].forEach(hideElement);
+          showSpheres();
+          animationRunning = false;
+        }, 4000);
       });
     </script>
   </body>
