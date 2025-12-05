@@ -27,6 +27,7 @@
         <img id="purple" src="./assets/textures/top/purple.png">
         <img id="ruffel" src="./assets/textures/top/ruffel.png">
         <img id="supexup" src="./assets/textures/top/supexup.png">
+        <img id="rank" src="./assets/textures/rank.png">
         <audio id="bg-music" src="./assets/sounds/background.mp3" preload="auto"></audio>
       </a-assets>
       
@@ -45,35 +46,41 @@
         
         <a-plane id="text-bg" color="#000000" opacity="0.9" position="0 0.85 -0.01" width="1.3" height="0.25" visible="false"></a-plane>
         <a-text value="En 2015" align="center" position="0 0.85 0" scale="0.45 0.45 0.45" color="#ffffff" visible="false" id="title-text"></a-text>
-        <a-plane id="number-bg" color="#000000" opacity="0.9" position="0 -0.4 -0.01" width="0.85" height="0.22" visible="false"></a-plane>
-        <a-text value="2344" align="center" position="0 -0.4 0" scale="0.55 0.55 0.55" color="#FFC107" visible="false" id="number-text" font="roboto"></a-text>
+        <a-plane id="number-bg" color="#000000" opacity="0.9" position="0 -0.4 -0.01" width="1.3" height="0.22" visible="false"></a-plane>
+        <a-text value="Etudiants : 2344" align="center" position="0 -0.4 0" scale="0.55 0.55 0.55" color="#9ED5D8" visible="false" id="number-text" font="roboto"></a-text>
         <a-plane class="clickable" src="#nombres" width="0.5" height="0.5" position="0.4 0.2 0" visible="false" id="scan-sphere" transparent="true"
                   animation__hover="property: scale; to: 1.2 1.2 1.2; dur: 300; startEvents: mouseenter" 
                   animation__leave="property: scale; to: 1 1 1; dur: 300; startEvents: mouseleave"></a-plane>
         <a-entity id="hat-entity" gltf-model="#hat-model" position="0 0 0.1" scale="0.03 0.03 0.03" visible="false"></a-entity>
-        
-        <a-box class="clickable" src="#graph-aprentis" width="0.35" height="0.35" depth="0.2" position="0.3 -0.5 0" visible="false" id="status-sphere"
+
+        <a-plane class="clickable" src="#graph-aprentis" width="0.35" height="0.35" position="0.3 -0.5 0" visible="false" id="status-sphere" transparent="true"
                   animation__hover="property: scale; to: 1.1 1.1 1.1; dur: 300; startEvents: mouseenter" 
-                  animation__leave="property: scale; to: 1 1 1; dur: 300; startEvents: mouseleave"></a-box>
-        <a-plane class="clickable" src="#unilist" width="0.3" height="0.3" position="-0.3 -0.6 0" visible="false" id="school-sphere" transparent="true"
+                  animation__leave="property: scale; to: 1 1 1; dur: 300; startEvents: mouseleave"></a-plane>
+        <a-plane class="clickable" src="#unilist" width="0.3" height="0.2" position="-0.3 -0.6 0" visible="false" id="school-sphere" transparent="true"
                   animation__hover="property: scale; to: 1.2 1.2 1.2; dur: 300; startEvents: mouseenter" 
                   animation__leave="property: scale; to: 1 1 1; dur: 300; startEvents: mouseleave"></a-plane>
-        <a-box class="clickable" color="#FFD700" width="0.35" height="0.35" depth="0.2" position="-0.6 0.2 0" visible="false" id="podium-sphere"
+        <a-plane class="clickable" src="#rank" width="0.45" height="0.45" position="-0.3 -0.1 0" visible="false" id="podium-sphere" transparent="true"
                   animation__hover="property: scale; to: 1.1 1.1 1.1; dur: 300; startEvents: mouseenter" 
-                  animation__leave="property: scale; to: 1 1 1; dur: 300; startEvents: mouseleave"></a-box>
+                  animation__leave="property: scale; to: 1 1 1; dur: 300; startEvents: mouseleave"></a-plane>
         <a-plane id="crowd-bg" color="#000000" opacity="0.92" position="0 0 0.05" width="2.8" height="1" visible="false"></a-plane>
-        <a-text value="APPRENTIS vs NON-APPRENTIS" align="center" position="0 0.45 0.06" scale="0.32 0.32 0.32" color="#4CAF50" visible="false" id="crowd-title"></a-text>
+        <a-text value="APPRENTIS vs NON-APPRENTIS" align="center" position="0 0.45 0.06" scale="0.32 0.32 0.32" color="#f5e9d4" visible="false" id="crowd-title"></a-text>
         <a-entity id="crowd-container" position="0 -0.1 0.1" visible="false"></a-entity>
         <a-plane id="schools-bg" color="#000000" opacity="0.92" position="0 0 0.05" width="2.8" height="1" visible="false"></a-plane>
-        <a-text value="LES ETABLISSEMENTS" align="center" position="0 0.45 0.06" scale="0.32 0.32 0.32" color="#2196F3" visible="false" id="schools-title"></a-text>
+        <a-text value="LES ETABLISSEMENTS" align="center" position="0 0.45 0.06" scale="0.32 0.32 0.32" color="#f5e9d4" visible="false" id="schools-title"></a-text>
         <a-entity id="schools-container" position="0 0 0.1" visible="false"></a-entity>
         <a-plane id="podium-bg" color="#000000" opacity="0.92" position="0 0 0.05" width="2.8" height="1.5" visible="false"></a-plane>
-        <a-text value="TOP DES ETABLISSEMENTS AVEC LE PLUS D'APPRENTIS" align="center" position="0 0.65 0.06" scale="0.28 0.28 0.28" color="#FFD700" visible="false" id="podium-title"></a-text>
+        <a-text value="TOP DES ETABLISSEMENTS AVEC LE PLUS D'APPRENTIS" align="center" position="0 0.65 0.06" scale="0.28 0.28 0.28" color="#f5e9d4" visible="false" id="podium-title"></a-text>
         <a-entity id="podium-container" position="0 -0.1 0.1" visible="false"></a-entity>
       </a-entity>
     </a-scene>
 
     <script>
+      // =================================================================
+      //
+      // Configuration des éléments et des animations
+      //
+      // =================================================================
+
       const targetEl = document.querySelector('[mindar-image-target]');
       const sphereEl = document.querySelector('#scan-sphere');
       const statusSphere = document.querySelector('#status-sphere');
@@ -109,6 +116,7 @@
       
       const hideElement = (el) => el.setAttribute('visible', false);
       
+      // Fonctions pour afficher/cacher les sphères principales
       const showSpheres = () => {
         showElement(sphereEl, 'property: scale; from: 0 0 0; to: 1 1 1; dur: 500; easing: easeOutBack');
         showElement(statusSphere, 'property: scale; from: 0 0 0; to: 1 1 1; dur: 500; easing: easeOutBack');
@@ -116,13 +124,14 @@
         showElement(podiumSphere, 'property: scale; from: 0 0 0; to: 1 1 1; dur: 500; easing: easeOutBack');
       };
       
+      // Fonctions pour cacher les sphères principales
       const hideSpheres = () => {
         hideElement(sphereEl);
         hideElement(statusSphere);
         hideElement(schoolSphere);
         hideElement(podiumSphere);
       };
-
+      
       targetEl.addEventListener('targetFound', () => {
         if (!menuActive) {
           showElement(welcomeBg, 'property: opacity; from: 0; to: 0.95; dur: 500');
@@ -134,49 +143,56 @@
           showSpheres();
         }
       });
-      
+      // Cacher tous les éléments lorsque la cible est perdue
       targetEl.addEventListener('targetLost', () => {
         [sphereEl, statusSphere, schoolSphere, podiumSphere, titleText, textBg, numberText, 
          numberBg, crowdContainer, crowdBg, crowdTitle, schoolsContainer, schoolsBg, schoolsTitle, podiumContainer, podiumBg, podiumTitle, welcomeBg, welcomeTitle, welcomeSubtitle, 
          startButton, startText]
           .forEach(hideElement);
       });
-      
+
+      // Démarrer l'expérience "DECOUVRIR" 
       startButton.addEventListener('click', () => {
         menuActive = true;
         [welcomeBg, welcomeTitle, welcomeSubtitle, startButton, startText].forEach(hideElement);
         showSpheres();
       });
-      
+
+      // Animation pour le nombre d'étudiants et apprentis
       sphereEl.addEventListener('click', () => {
-        if (animationRunning) return;
+        if (!menuActive || animationRunning) return;
         animationRunning = true;
+
+        hideSpheres(); // Cacher les sphères principales
         
-        hideSpheres();
+        // Reset des valeurs initiales
+        titleText.setAttribute('value', 'En 2015');
+        numberText.setAttribute('value', 'Etudiants : 2344');
+        hatEntity.setAttribute('scale', '0.03 0.03 0.03');
+        
         showElement(textBg, 'property: opacity; from: 0; to: 0.9; dur: 500');
         showElement(titleText, 'property: opacity; from: 0; to: 1; dur: 500');
         showElement(numberBg, 'property: opacity; from: 0; to: 0.9; dur: 500');
-        showElement(numberText, 'property: opacity; from: 0; to: 1; dur: 500');
+        showElement(numberText, 'property: opacity; from: 0; to: 1; dur: 500; color: #9ED5D8');
         showElement(hatEntity);
-        hatEntity.setAttribute('scale', '0.03 0.03 0.03');
         hatEntity.setAttribute('animation', 'property: scale; to: 0.15 0.15 0.15; dur: 2000; easing: easeOutQuad');
-        // Chamgement pour 2015
+        // Chamgement pour 2020
         setTimeout(() => {
           titleText.setAttribute('value', 'En 2020');
-          numberText.setAttribute('value', '2758');
+          numberText.setAttribute('value', 'Etudiants : 2758');
           hatEntity.setAttribute('animation', 'property: scale; to: 0.28 0.28 0.28; dur: 2000; easing: easeOutQuad');
         }, 3000);
         // Changement pour 2025
         setTimeout(() => {
           titleText.setAttribute('value', 'En 2025');
-          numberText.setAttribute('value', '2747');
-          hatEntity.setAttribute('animation', 'property: scale; to: 0.38 0.38 0.38; dur: 2000; easing: easeOutQuad');
+          numberText.setAttribute('value', 'Etudiants : 2747');
+          hatEntity.setAttribute('animation', 'property: scale; to: 0.38 0.38 0.38; dur: 2000; easing: easeOutQuad; color: #9ED5D8');
         }, 6000);
         // Dernier changement avec le nombre actuel
         setTimeout(() => {
           titleText.setAttribute('value', 'Maintenant');
-          numberText.setAttribute('value', '3675');
-          hatEntity.setAttribute('animation', 'property: scale; to: 0.48 0.48 0.48; dur: 2000; easing: easeOutQuad');
+          numberText.setAttribute('value', 'Etudiants : 3675');
+          hatEntity.setAttribute('animation', 'property: scale; to: 0.48 0.48 0.48; dur: 2000; easing: easeOutQuad; color: #9ED5D8');
         }, 9000);
         // Fin de l'animation après le dernier changement
         setTimeout(() => {
@@ -187,7 +203,7 @@
       });
       
       statusSphere.addEventListener('click', () => {
-        if (animationRunning) return;
+        if (!menuActive || animationRunning) return;
         animationRunning = true;
         
         hideSpheres();
@@ -232,7 +248,7 @@
 
       // Animation pour le statut des établissements
       schoolSphere.addEventListener('click', () => {
-        if (animationRunning) return;
+        if (!menuActive || animationRunning) return;
         animationRunning = true;
         
         hideSpheres();
@@ -244,9 +260,9 @@
         
         // Affichage simple des 3 types d'établissements
         const schoolsData = [
-          { position: '-0.6 0 0', color: '#4CAF50', label: 'Public', number: '8' },
-          { position: '0 0 0', color: '#9C27B0', label: 'Privé\nsous contrat', number: '3' },
-          { position: '0.6 0 0', color: '#FF5722', label: 'Privé\nsans contrat', number: '10' }
+          { position: '-0.6 0 0', color: '#2397A3', label: 'Public', number: '8' },
+          { position: '0 0 0', color: '#13525C', label: 'Prive\nsous contrat', number: '3' },
+          { position: '0.6 0 0', color: '#DA1615', label: 'Prive\nsans contrat', number: '10' }
         ];
         
         schoolsData.forEach((data, index) => {
@@ -296,11 +312,11 @@
           [schoolsContainer, schoolsBg, schoolsTitle].forEach(hideElement);
           showSpheres();
           animationRunning = false;
-        }, 4000);
+        }, 6000);
       });
       
       podiumSphere.addEventListener('click', () => {
-        if (animationRunning) return;
+        if (!menuActive || animationRunning) return;
         animationRunning = true;
         
         hideSpheres();
@@ -312,9 +328,9 @@
         
         // Création du podium avec 3 boîtes
         const podiumData = [
-          { position: '-0.35 -0.15 0', height: 0.4, color: '#C0C0C0', rank: '2', label: 'IUT BEZIERS', image: '#ruffel' },  // 2ème place (gauche)
-          { position: '0 0 0', height: 0.6, color: '#FFD700', rank: '1', label: 'UNIVERSITE', image: '#purple' },         // 1ère place (centre)
-          { position: '0.35 -0.25 0', height: 0.3, color: '#CD7F32', rank: '3', label: 'LYCEE MERMOZ', image: '#supexup' }  // 3ème place (droite)
+          { position: '-0.35 -0.15 0', height: 0.4, color: '#2397a3', rank: '2', label: 'IUT BEZIERS', image: '#ruffel' },  // 2ème place (gauche)
+          { position: '0 0 0', height: 0.6, color: '#9ed5d8', rank: '1', label: 'UNIVERSITE', image: '#purple' },         // 1ère place (centre)
+          { position: '0.35 -0.25 0', height: 0.3, color: '#13525c', rank: '3', label: 'LYCEE MERMOZ', image: '#supexup' }  // 3ème place (droite)
         ];
         
         podiumData.forEach((data, index) => {
@@ -355,7 +371,7 @@
           [podiumContainer, podiumBg, podiumTitle].forEach(hideElement);
           showSpheres();
           animationRunning = false;
-        }, 4000);
+        }, 6000);
       });
     </script>
   </body>
