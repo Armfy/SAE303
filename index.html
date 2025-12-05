@@ -80,7 +80,7 @@
       // Configuration des éléments et des animations
       //
       // =================================================================
-
+      // Sélection des éléments clés dans le html
       const targetEl = document.querySelector('[mindar-image-target]');
       const sphereEl = document.querySelector('#scan-sphere');
       const statusSphere = document.querySelector('#status-sphere');
@@ -131,7 +131,8 @@
         hideElement(schoolSphere);
         hideElement(podiumSphere);
       };
-      
+
+      // Afficher les éléments lorsque la cible est trouvée
       targetEl.addEventListener('targetFound', () => {
         if (!menuActive) {
           showElement(welcomeBg, 'property: opacity; from: 0; to: 0.95; dur: 500');
@@ -169,7 +170,7 @@
         titleText.setAttribute('value', 'En 2015');
         numberText.setAttribute('value', 'Etudiants : 2344');
         hatEntity.setAttribute('scale', '0.03 0.03 0.03');
-        
+        // Démarrer l'animation d'apparition des éléments pour le nombre d'étudiants
         showElement(textBg, 'property: opacity; from: 0; to: 0.9; dur: 500');
         showElement(titleText, 'property: opacity; from: 0; to: 1; dur: 500');
         showElement(numberBg, 'property: opacity; from: 0; to: 0.9; dur: 500');
@@ -193,13 +194,13 @@
           titleText.setAttribute('value', 'Maintenant');
           numberText.setAttribute('value', 'Etudiants : 3675');
           hatEntity.setAttribute('animation', 'property: scale; to: 0.48 0.48 0.48; dur: 2000; easing: easeOutQuad; color: #9ED5D8');
-        }, 9000);
+        }, 9000); 
         // Fin de l'animation après le dernier changement
         setTimeout(() => {
           [hatEntity, titleText, textBg, numberText, numberBg].forEach(hideElement);
           showSpheres();
           animationRunning = false;
-        }, 13000);
+        }, 13000); // timer
       });
       
       statusSphere.addEventListener('click', () => {
@@ -243,7 +244,7 @@
           [crowdContainer, crowdBg, crowdTitle].forEach(hideElement);
           showSpheres();
           animationRunning = false;
-        }, 6000);
+        }, 6000); // timer
       });
 
       // Animation pour le statut des établissements
@@ -307,12 +308,13 @@
             schoolsContainer.appendChild(number);
           }, index * 400);
         });
-        
+
+          // Fin de l'animation après le dernier élément
         setTimeout(() => {
           [schoolsContainer, schoolsBg, schoolsTitle].forEach(hideElement);
           showSpheres();
           animationRunning = false;
-        }, 6000);
+        }, 6000); // timer
       });
       
       podiumSphere.addEventListener('click', () => {
@@ -371,7 +373,7 @@
           [podiumContainer, podiumBg, podiumTitle].forEach(hideElement);
           showSpheres();
           animationRunning = false;
-        }, 6000);
+        }, 6000); // timer
       });
     </script>
   </body>
